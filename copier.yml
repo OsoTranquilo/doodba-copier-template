@@ -129,7 +129,7 @@ odoo_proxy:
     Which proxy will you use to deploy odoo?
 
 odoo_initial_lang:
-  default: es_EC
+  default: es_ES
   type: str
   help: >-
     If you want to initialize Odoo automatically in a specific language, write it here.
