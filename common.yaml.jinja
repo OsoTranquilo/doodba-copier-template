@@ -4,7 +4,7 @@ version: "2.4"
 services:
   odoo:
     {%- if odoo_oci_image %}
-    image: {{ odoo_oci_image }}:{{ macros.version_minor(odoo_version) }}
+    image: {{ odoo_oci_image }}:{{ project_name }}-{{ macros.version_minor(odoo_version) }}
     {%- endif %}
     build:
       context: ./odoo
@@ -100,7 +100,7 @@ services:
     init: true
     environment:
       DB_VERSION: "{{ postgres_version or 'latest' }}"
-      DBS_TO_INCLUDE: "{{ odoo_dbfilter }}"
+      DBS_TO_INCLUDE: "{{ odoo_dbfilter | replace('$', '$$') | replace('%d', '.*') | replace('%h', '.*') }}"
       DST: "{{ backup_dst }}"
       {%- if smtp_relay_host %}
       EMAIL_FROM: "{{ backup_email_from }}"
